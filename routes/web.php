@@ -132,6 +132,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/first-steps', 'SettingsController@updateFirstStep')->name('settings.update.first_step');
         Route::get('/business-hours', 'SettingsController@businessHours')->name('settings.business_hours');
         Route::get('/date-formats', 'SettingsController@dateFormats')->name('settings.date_formats');
+        Route::get('/reset', 'SettingsController@reset')->name('settings.reset_data');
     });
 
     /**

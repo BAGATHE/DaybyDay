@@ -170,6 +170,11 @@
                     <a href="{{ route('integrations.index')}}"
                        class="list-group-item childlist"> <i
                                 class="bullet-point"><span></span></i> {{ __('Integrations') }}</a>
+                    <a href="{{ route('settings.reset_data') }}"
+                       onclick="return confirm('Voulez-vous vraiment réinitialiser la base de données ? Cette action est irréversible !');"
+                       class="list-group-item childlist">
+                        <i class="bullet-point"><span></span></i> {{ __('Reinitialisation Base') }}
+                    </a>
                 </div>
             @endif
         </div>
@@ -186,6 +191,14 @@
                 </div>
             </div>
         </div>
+        @if(session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
+
+        @if(session('error'))
+            <div class="alert alert-danger" >{{ session('error') }}</div>
+        @endif
+
         @if($errors->any())
             <div class="alert alert-danger">
                 @foreach($errors->all() as $error)
@@ -194,6 +207,8 @@
             </div>
 
         @endif
+
+
         @if(Session::has('flash_message_warning'))
 
             <message message="{{ Session::get('flash_message_warning') }}" type="warning"></message>
