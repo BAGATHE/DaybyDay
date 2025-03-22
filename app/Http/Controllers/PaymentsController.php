@@ -8,6 +8,7 @@ use App\Models\Integration;
 use App\Models\Invoice;
 use App\Models\Payment;
 use App\Services\Invoice\GenerateInvoiceStatus;
+use App\Services\Invoice\InvoiceCalculator;
 use Carbon\Carbon;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
@@ -52,6 +53,14 @@ class PaymentsController extends Controller
     {
         if (!$invoice->isSent()) {
             session()->flash('flash_message_warning', __("Can't add payment on Invoice"));
+            return redirect()->route('invoices.show', $invoice->external_id);
+        }
+
+        //Gestion exception prix
+        $invoiceCalculator = new InvoiceCalculator($invoice);
+        if($invoiceCalculator->getAmountDue()->getAmount() < $request->amount * Constante::COEFFICIENT) {
+            $montant = $request->amount * Constante::COEFFICIENT - $invoiceCalculator->getAmountDue()->getAmount() ;
+            session()->flash('flash_message_warning', __("Le montant inserer est superieur de $montant  du  montant qui doit etre payé!!!!"));
             return redirect()->route('invoices.show', $invoice->external_id);
         }
 
