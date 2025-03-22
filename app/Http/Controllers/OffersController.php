@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Constante\Constante;
 use App\Models\Lead;
 use App\Models\Offer;
 use Ramsey\Uuid\Uuid;
@@ -34,7 +35,7 @@ class OffersController extends Controller
                 'type' => $line["type"],
                 'quantity' => $line["quantity"] ?: 1,
                 'comment' => $line["comment"],
-                'price' => $line["price"] * 100,
+                'price' => $line["price"] * constante::COEFFICIENT,
                 'product_id' => $line["product"] ? Product::whereExternalId($line["product"])->first()->id : null
             ]);
             $offer->invoiceLines()->save($invoiceLine);
@@ -62,7 +63,7 @@ class OffersController extends Controller
                 'type' => $line["type"],
                 'quantity' => $line["quantity"] ?: 1,
                 'comment' => $line["comment"],
-                'price' => $line["price"] * 100,
+                'price' => $line["price"] * constante::COEFFICIENT,
                 'product_id' => $line["product"] ? Product::whereExternalId($line["product"])->first()->id : null
             ]);
             $offer->invoiceLines()->save($invoiceLine);

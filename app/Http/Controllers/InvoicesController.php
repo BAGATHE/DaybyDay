@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Constante\Constante;
 use View;
 use App\Billy;
 use Datatables;
@@ -165,7 +166,7 @@ class InvoicesController extends Controller
                 'comment' => $request->comment,
                 'quantity' => $request->quantity,
                 'type' => $request->type,
-                'price' => $request->price * 100,
+                'price' => $request->price * Constante::COEFFICIENT,
                 'invoice_id' => $invoice->id,
                 'product_id' => $product
             ]);
