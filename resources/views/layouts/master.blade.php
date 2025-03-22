@@ -176,6 +176,16 @@
                         <i class="bullet-point"><span></span></i> {{ __('Reinitialisation Base') }}
                     </a>
                 </div>
+
+            <!-- IMPORT Route--->
+                <a href="#imports" class=" list-group-item" data-toggle="collapse" data-parent="#MainMenu"><i
+                            class="fa fa-cog sidebar-icon"></i><span id="menu-txt">{{ __('Import CSV') }}</span>
+                    <i class="icon ion-md-arrow-dropup arrow-side sidebar-arrow"></i></a>
+                <div class="collapse" id="imports">
+                    <a href="{{ route('imports.index')}}"
+                       class="list-group-item childlist"> <i
+                                class="bullet-point"><span></span></i> {{ __('Import Projects') }}</a>
+                </div>
             @endif
         </div>
     </nav>

@@ -9,6 +9,9 @@
 | to using a Closure or controller method. Build something great!
 |
 */
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ImportProjectController;
 Route::auth();
 Route::get('/logout', 'Auth\LoginController@logout');
 Route::group(['middleware' => ['auth']], function () {
@@ -227,6 +230,14 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/create', 'AbsenceController@create')->name('absence.create');
         Route::post('/', 'AbsenceController@store')->name('absence.store');
         Route::delete('/{absence}', 'AbsenceController@destroy')->name('absence.destroy');
+    });
+
+    /**
+     * IMPORT CSV
+     */
+    Route::group(['prefix' => 'imports'], function () {
+        Route::get('/', 'ImportProjectController@index')->name('imports.index');
+        Route::post('/projects', 'ImportProjectController@store')->name('import.projects.store');
     });
 });
 
