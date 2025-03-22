@@ -1,6 +1,7 @@
 <?php
 namespace  App\Repositories\Money;
 
+use App\Constante\Constante;
 use App\Models\Setting;
 use App\Repositories\Currency\Currency;
 
@@ -39,6 +40,6 @@ class Money
 
     public function getBigDecimalAmount()
     {
-        return $this->getAmount() / 100;
+        return $this->getAmount() / Constante::COEFFICIENT;
     }
 }

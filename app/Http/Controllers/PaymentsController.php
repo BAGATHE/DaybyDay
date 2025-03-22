@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Constante\Constante;
 use App\Http\Requests\Payment\PaymentRequest;
 use App\Models\Integration;
 use App\Models\Invoice;
@@ -56,7 +57,7 @@ class PaymentsController extends Controller
 
         $payment = Payment::create([
             'external_id' => Uuid::uuid4()->toString(),
-            'amount' => $request->amount * 100,
+            'amount' => $request->amount * Constante::COEFFICIENT,
             'payment_date' => Carbon::parse($request->payment_date),
             'payment_source' => $request->source,
             'description' => $request->description,
