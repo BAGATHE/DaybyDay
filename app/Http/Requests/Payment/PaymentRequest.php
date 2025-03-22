@@ -26,11 +26,12 @@ class PaymentRequest extends FormRequest
     public function rules()
     {
         return [
-            'amount' => 'regex:/^-?[0-9]+[.,]?[0-9]*+$/|required|not_in:0',
-            'payment_date' => 'date|required',
+            'amount' => 'required|numeric|min:0.01',
+            'payment_date' => 'required|date',
             'source' => ['required', PaymentSource::validationRules()],
         ];
     }
+
 
     /**
      * Get the error messages for the defined validation rules.
@@ -40,13 +41,14 @@ class PaymentRequest extends FormRequest
     public function messages()
     {
         return [
-            'amount.integer' => __('The amount must be an integer.'),
+            'amount.numeric' => __('The amount must be a valid number.'),
             'amount.required' => __('The amount is required.'),
-            'amount.not_in' => __('The amount can not be 0.'),
+            'amount.min' => __('The amount must be greater than 0.'),
             'payment_date.date'  => __('The payment date is not a valid date.'),
             'payment_date.required'  => __('The payment date is required.'),
             'source.required' => __('The source is required.'),
             'source.in' => __('Invalid source'),
         ];
     }
+
 }
