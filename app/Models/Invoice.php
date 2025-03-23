@@ -165,4 +165,9 @@ class Invoice extends Model
         $invoiceCalculator = new InvoiceCalculator($this);
         return $invoiceCalculator->getTotalPrice();
     }
+    public function getTotalPaidAttribute()
+    {
+        return $this->payments->sum('amount');
+    }
+
 }

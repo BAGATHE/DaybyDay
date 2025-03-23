@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\api;
 
-use App\Api\v1\Controllers\ApiController;
 use App\Http\Requests\LoginApiRequest;
 use App\Utils\ResponseUtil;
 use Illuminate\Http\Request;
