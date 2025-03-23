@@ -1,25 +1,27 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\api;
 
+use App\Http\Controllers\Controller;
 use App\Models\Invoice;
 use App\Models\InvoiceLine;
 use App\Models\Offer;
 use App\Models\Payment;
+use App\Services\Dashboard\DashboardService;
 use App\Utils\ResponseUtil;
-use Illuminate\Http\Request;
 
 class DashboardApiController extends Controller
 {
+    protected $dashboardService;
+
+    public function __construct(DashboardService $dashboardService)
+    {
+        $this->dashboardService = $dashboardService;
+    }
+
     public function index(){
         try{
-            $totalInvoiceAmount = InvoiceLine::selectRaw('SUM(price * quantity) as total')->value('total');
-            $data =[
-                'totalOffers' => Offer::count(),
-                'totalInvoices'=> Invoice::count(),
-                'totalInvoiceAmount' =>$totalInvoiceAmount,
-                'totalPayement'=> Payment::sum('amount'),
-            ];
+            $data = $this->dashboardService->getDashboardData();
             return ResponseUtil::responseStandard('success', ["kpi" => $data]);
         }catch (\Exception $e){
             return ResponseUtil::responseStandard(

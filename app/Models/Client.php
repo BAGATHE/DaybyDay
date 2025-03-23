@@ -18,6 +18,7 @@ class Client extends Model
 {
     use  SearchableTrait, SoftDeletes;
 
+    protected $primaryKey = 'id';
     protected $searchableFields = ['company_name', 'vat', 'address'];
 
     protected $fillable = [

@@ -1,8 +1,10 @@
 <?php
 
-use App\Http\Controllers\AuthApiController;
-use App\Http\Controllers\DashboardApiController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\api\AuthApiController;
+use App\Http\Controllers\api\DashboardApiController;
+use App\Http\Controllers\api\InvoiceApiController;
+use App\Http\Controllers\api\OfferApiController;
+use App\Http\Controllers\api\PaymentApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,4 +20,10 @@ use Illuminate\Http\Request;
 Route::post('/login-api', [AuthApiController::class,'login']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/dashboards', [DashboardApiController::class,'index']);
+    Route::get('/offers', [OfferApiController::class,'index']);
+    Route::get('/invoices', [InvoiceApiController::class,'index']);
+    Route::get('/payments', [PaymentApiController::class,'index']);
+
 });
+
+
