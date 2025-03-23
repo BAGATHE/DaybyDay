@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthApiController;
+use App\Http\Controllers\DashboardApiController;
 use Illuminate\Http\Request;
 
 /*
@@ -16,7 +17,5 @@ use Illuminate\Http\Request;
 
 Route::post('/login-api', [AuthApiController::class,'login']);
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/user', function (Request $request) {
-        return $request->user();
-    });
+    Route::get('/dashboards', [DashboardApiController::class,'index']);
 });
