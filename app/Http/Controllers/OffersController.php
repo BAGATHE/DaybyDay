@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Constante\Constante;
 use App\Models\Lead;
 use App\Models\Offer;
+use App\Models\Setting;
 use Ramsey\Uuid\Uuid;
 use App\Models\Invoice;
 use App\Models\Product;
@@ -82,12 +83,14 @@ class OffersController extends Controller
         $invoice->offer_id = $offer->id;
         $invoice->invoice_number = app(InvoiceNumberService::class)->setNextInvoiceNumber();
         $invoice->status = InvoiceStatus::draft()->getStatus();
+        $invoice->remise = Setting::getGlobalRemise();
         $invoice->save();
         
         $lines = $offer->invoiceLines;
         $newLines = collect();
         foreach($lines as $invoiceLine) {
             $invoiceLine->offer_id = null;
+            $invoiceLine->price = $invoiceLine->price * (1 - $invoice->remise/100);
             $newLines->push(InvoiceLine::make($invoiceLine->toArray()));
         }
   
