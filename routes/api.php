@@ -27,6 +27,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/payements/sources',[ChartApiController::class,'getpayementBysource']);
     Route::post('/settings/update/remise',[\App\Http\Controllers\SettingsController::class,'updateRemise']);
     Route::get('/settings/remise',[\App\Http\Controllers\SettingsController::class,'getRemise']);
+    Route::post('/payement/update',[PaymentApiController::class,'update']);
+    Route::post('/payement/delete',[PaymentApiController::class,'delete']);
 
 });
 
