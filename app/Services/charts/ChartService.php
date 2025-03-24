@@ -2,24 +2,26 @@
 
 namespace App\Services\charts;
 
+use App\Models\Client;
 use App\Models\InvoiceLine;
 use App\Models\Payment;
 use Illuminate\Support\Facades\DB;
 
 class ChartService
 {
-    public function getPaymentBySource()
+    public function getPaymentBySource($year)
     {
-        $payments = Payment::select("payment_source")
+        $payments = Payment::selectRaw("payment_source, SUM(amount) as total_amount")
+            ->whereYear("payment_date", $year)
             ->whereIn("payment_source", ["bank", "cash", "expenses"])
             ->groupBy("payment_source")
-            ->selectRaw("payment_source, SUM(amount) as total_amount")
             ->get()
             ->keyBy("payment_source");
 
-        return [$payments->get('bank', collect(['total_amount' => 0])),
-                $payments->get('cash', collect(['total_amount' => 0])),
-                $payments->get('expenses', collect(['total_amount' => 0])),
+        return [
+            $payments->get('bank', collect(['payment_source'=>'bank','total_amount' => "0"])),
+            $payments->get('cash', collect(['payment_source'=>'cash','total_amount' => "0"])),
+            $payments->get('expenses', collect(['payment_source'=>'expenses','total_amount' => "0"])),
         ];
     }
 
@@ -92,6 +94,18 @@ class ChartService
 
         return $finalData;
 
+    }
+
+    public function getNumberClientinYear($year) {
+        $clients = Client::selectRaw('COUNT(id) as client_number, MONTH(created_at) as month, YEAR(created_at) as year')
+            ->whereYear('created_at', $year)
+            ->whereNull('deleted_at')
+            ->groupBy('year', 'month')
+            ->orderBy('year', 'ASC')
+            ->orderBy('month', 'ASC')
+            ->get();
+
+        return $clients;
     }
 
 
