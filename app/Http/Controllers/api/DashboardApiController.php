@@ -28,9 +28,10 @@ class DashboardApiController extends Controller
             $year = $request->only('year');
 
             $data = $this->dashboardService->getDashboardData();
-            $paymentsource = $this->chartService->getPaymentBySource();
+            $paymentsource = $this->chartService->getPaymentBySource($year);
             $payementInvoicelines = $this->chartService->getPayementAndInvoiceLine($year);
-            return ResponseUtil::responseStandard('success', ["kpi"=>$data,"paymentsource"=>$paymentsource,'payementInvoicelinesAmount'=>$payementInvoicelines]);
+            $clients = $this->chartService->getNumberClientinYear($year);
+            return ResponseUtil::responseStandard('success', ["kpi"=>$data,"paymentsource"=>$paymentsource,'payementInvoicelinesAmount'=>$payementInvoicelines,'clients'=>$clients]);
         }catch (\Exception $e){
             return ResponseUtil::responseStandard(
                 'error',
