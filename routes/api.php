@@ -25,6 +25,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/invoices', [InvoiceApiController::class,'index']);
     Route::get('/payments', [PaymentApiController::class,'index']);
     Route::get('/payements/sources',[ChartApiController::class,'getpayementBysource']);
+    Route::post('/settings/update/remise',[\App\Http\Controllers\SettingsController::class,'updateRemise']);
+    Route::get('/settings/remise',[\App\Http\Controllers\SettingsController::class,'getRemise']);
 
 });
 

@@ -13,6 +13,7 @@ class Setting extends Model
         'currency',
         'vat',
         'language',
+        'remise_invoice'
     ];
 
     public function user()
@@ -24,4 +25,23 @@ class Setting extends Model
     {
         return $this->belongsTo(Task::class);
     }
+
+    public static function setGlobalRemise(float $newRemise): bool
+    {
+        $settings = self::first();
+        if ($settings) {
+            return $settings->update(['remise_invoice' => $newRemise]);
+        }
+        return false;
+    }
+
+    public static function getGlobalRemise(): float
+    {
+        $settings = self::first();
+        if ($settings) {
+            return $settings->remise_invoice;
+        }
+        return false;
+    }
+
 }
