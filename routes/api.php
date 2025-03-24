@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\api\AuthApiController;
+use App\Http\Controllers\api\ChartApiController;
 use App\Http\Controllers\api\DashboardApiController;
 use App\Http\Controllers\api\InvoiceApiController;
 use App\Http\Controllers\api\OfferApiController;
@@ -23,6 +24,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/offers', [OfferApiController::class,'index']);
     Route::get('/invoices', [InvoiceApiController::class,'index']);
     Route::get('/payments', [PaymentApiController::class,'index']);
+    Route::get('/payements/sources',[ChartApiController::class,'getpayementBysource']);
 
 });
 

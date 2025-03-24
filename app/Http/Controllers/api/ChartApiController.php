@@ -3,20 +3,22 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
-use App\Services\Payement\PaymentService;
+use App\Services\charts\ChartService;
 use App\Utils\ResponseUtil;
+use Illuminate\Http\Request;
 
-class PaymentApiController extends Controller
+class ChartApiController extends Controller
 {
-    protected $paymentService;
-    public function __construct(paymentService $paymentService){
-        $this->paymentService = $paymentService;
+    protected  $chartService;
+    public function __construct(ChartService $chartService){
+        $this->chartService = $chartService;
     }
 
-    public function index(){
+
+    public function getpayementBysource(){
         try {
-            $payements = $this->paymentService->getPayement();
-            return ResponseUtil::responseStandard('success', ["payments" => $payements]);
+            $invoices = $this->chartService->getPaymentBySource();
+            return ResponseUtil::responseStandard('success', ["payments" => $invoices]);
         } catch (\Exception $e) {
             return ResponseUtil::responseStandard(
                 'error',
