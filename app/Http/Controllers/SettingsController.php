@@ -12,6 +12,7 @@ use App\Services\ClientNumber\ClientNumberValidator;
 use App\Services\InvoiceNumber\InvoiceNumberService;
 use App\Services\InvoiceNumber\InvoiceNumberValidator;
 use App\Services\reset\DatabaseResetService;
+use App\Utils\ResponseUtil;
 use Auth;
 use Carbon\Carbon;
 use Ramsey\Uuid\Uuid;
@@ -200,5 +201,24 @@ class SettingsController extends Controller
     {
         $result = $this->databaseResetService->resetDatabase();
         return redirect()->back()->with($result['status'], $result['message']);
+    }
+
+public function updateRemise(Request $request){
+        $remise = $request->remise;
+        $message = __('Remise updated successfully');
+        $isSuccess = FALSE;
+        if(Setting::setGlobalRemise($remise)){
+            $message = __('Remise updated successfully');
+            $isSuccess = TRUE;
+        }else{
+            $message = __('Remise not updated');
+            $isSuccess = FALSE;
+        }
+    return ResponseUtil::responseStandard('success', ["message" => $message,"isSuccess" => $isSuccess]);
+    }
+
+    public function getRemise(){
+        $remise = Setting::getGlobalRemise();
+        return ResponseUtil::responseStandard('success', ["remise" => $remise]);
     }
 }
