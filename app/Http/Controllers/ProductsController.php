@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Constante\Constante;
 use App\Models\Product;
 use App\Repositories\Money\Money;
 use Illuminate\Http\Request;
@@ -37,7 +38,7 @@ class ProductsController extends Controller
     $product->name = $request->name;
     $product->description = $request->description;
     $product->default_type = $request->type;
-    $product->price = $request->price * 100;
+    $product->price = $request->price * Constante::COEFFICIENT;
     $product->number = $request->product_number;
     
     $product->save();

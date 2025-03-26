@@ -11,7 +11,7 @@
 */
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ImportProjectController;
+use App\Http\Controllers\CsvImportController;
 Route::auth();
 Route::get('/logout', 'Auth\LoginController@logout');
 Route::group(['middleware' => ['auth']], function () {
@@ -236,8 +236,8 @@ Route::group(['middleware' => ['auth']], function () {
      * IMPORT CSV
      */
     Route::group(['prefix' => 'imports'], function () {
-        Route::get('/', 'ImportProjectController@index')->name('imports.index');
-        Route::post('/projects', 'ImportProjectController@store')->name('import.projects.store');
+        Route::get('/', [CsvImportController::class,'index'])->name('imports.index');
+        Route::post('/',[CsvImportController::class,'import'])->name('import.csv');
     });
 });
 

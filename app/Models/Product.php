@@ -2,13 +2,29 @@
 
 namespace App\Models;
 
+use App\Constante\Constante;
 use App\Repositories\Money\Money;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
+    /**
+     * @var mixed
+     */
     protected $appends = ['divided_price'];
     protected $hidden=['id'];
+    protected $table = 'products';
+
+    protected $fillable = [
+        'external_id',
+        'name',
+        'description',
+        'default_type',
+        'archived',
+        'integration_type',
+        'price',
+        'number'
+        ];
     
     public function getRouteKeyName()
     {
@@ -23,7 +39,7 @@ class Product extends Model
 
     public function getDividedPriceAttribute()
     {
-        return $this->price / 100;
+        return $this->price / Constante::COEFFICIENT;
     }
     
 }
