@@ -76,7 +76,7 @@ class AbsenceReason
                 self::VACATION => new AbsenceReason(self::VACATION, 'Vacation'),
                 self::VACATION_DAY => new AbsenceReason(self::VACATION_DAY, 'Vacation day'),
                 self::TIME_OFF => new AbsenceReason(self::TIME_OFF, 'Time off'),
-                self::TIME_OFF_IN_LIEU => new AbsenceReason(self::TIME_OFF, 'Time off in lieu'),
+                self::TIME_OFF_IN_LIEU => new AbsenceReason(self::TIME_OFF_IN_LIEU, 'Time off in lieu'),
                 self::FLEXTIME => new AbsenceReason(self::FLEXTIME, 'Flextime'),
                 self::OTHER => new AbsenceReason(self::OTHER, 'Other'),
             ];

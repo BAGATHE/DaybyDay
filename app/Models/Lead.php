@@ -26,7 +26,7 @@ class Lead extends Model implements Commentable
     use SearchableTrait, SoftDeletes, DeadlineTrait;
 
     protected $searchableFields = ['title'];
-
+    protected $primaryKey = 'id';
     const LEAD_STATUS_CLOSED = "closed";
 
     protected $fillable = [

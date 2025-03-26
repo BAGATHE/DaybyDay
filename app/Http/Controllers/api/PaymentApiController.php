@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Constante\Constante;
 use App\Http\Controllers\Controller;
 use App\Models\Payment;
+use App\Services\Invoice\GenerateInvoiceStatus;
 use App\Services\Invoice\InvoiceCalculator;
 use App\Services\Payement\PaymentService;
 use App\Utils\ResponseUtil;
@@ -53,6 +54,10 @@ class PaymentApiController extends Controller
         }
         $payment->amount = $nouveau_montant;
         $payment->save();
+
+        $invoice = $payment->invoice;
+        $status = new GenerateInvoiceStatus($invoice);
+        $status->createStatus();
         // Retourner une confirmation
         return ResponseUtil::responseStandard('success', ["message" => "modification reussi"]);
     }
