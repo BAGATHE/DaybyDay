@@ -175,6 +175,11 @@
                        class="list-group-item childlist">
                         <i class="bullet-point"><span></span></i> {{ __('Reinitialisation Base') }}
                     </a>
+                    <a href="{{ route('settings.generation_data') }}"
+                       onclick="return confirm('Voulez-vous vraiment sur  de regenerer des donnée ? Cette action est irréversible !');"
+                       class="list-group-item childlist">
+                        <i class="bullet-point"><span></span></i> {{ __('Generation de donnée') }}
+                    </a>
                 </div>
 
             <!-- IMPORT Route--->

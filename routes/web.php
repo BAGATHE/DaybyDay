@@ -136,6 +136,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/business-hours', 'SettingsController@businessHours')->name('settings.business_hours');
         Route::get('/date-formats', 'SettingsController@dateFormats')->name('settings.date_formats');
         Route::get('/reset', 'SettingsController@reset')->name('settings.reset_data');
+        Route::get('/generation_data', 'SettingsController@generationData')->name('settings.generation_data');
     });
 
     /**
@@ -240,6 +241,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/',[CsvImportController::class,'import'])->name('import.csv');
     });
 });
+
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/dropbox-token', 'CallbackController@dropbox')->name('dropbox.callback');
