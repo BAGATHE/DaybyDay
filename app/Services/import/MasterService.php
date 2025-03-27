@@ -95,7 +95,9 @@ class MasterService
     {
         foreach ($masterDTOs as $masterDTO) {
             $client = Client::where('company_name','like',$masterDTO->getClientName())->first();
-
+            if(!$client){
+                throw new \Exception("Le client n'existe pas. => ".$masterDTO->getClientName());
+            }
             $lead = $this->leadService->findOrCreateLead($masterDTO->getLeadTitle(),$client->id);
 
             $product = $this->productService->findOrCreateProduct($masterDTO->getProduit(),$masterDTO->getPrix());

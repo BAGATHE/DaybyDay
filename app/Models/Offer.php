@@ -10,6 +10,7 @@ class Offer extends Model
 {
     use SoftDeletes;
     protected $fillable = [
+        'id',
         'sent_at',
         'status',
         'due_at',

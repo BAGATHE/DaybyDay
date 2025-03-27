@@ -4,6 +4,7 @@ namespace App\Models;
 use App\Http\Controllers\ClientsController;
 use App\Observers\ElasticSearchObserver;
 use App\Traits\SearchableTrait;
+use App\Utils\ResponseUtil;
 use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -22,6 +23,7 @@ class Client extends Model
     protected $searchableFields = ['company_name', 'vat', 'address'];
 
     protected $fillable = [
+        'id',
         'external_id',
         'name',
         'company_name',
@@ -129,5 +131,22 @@ class Client extends Model
     public function getSearchableFields(): array
     {
         return $this->searchableFields;
+    }
+
+
+
+    public function duplicate()
+    {
+
+       /* dd(json_encode($leads));
+        $offers = Offer::where('client_id', $this->id);
+        dd(json_encode($leads),json_encode($offers));
+
+        $json = json_encode($myJson);
+
+        echo $myJSONvar;
+
+        file_put_contents("result_data.json", $myJSONvar);
+       */
     }
 }

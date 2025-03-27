@@ -3,6 +3,7 @@
 use App\Http\Controllers\api\AuthApiController;
 use App\Http\Controllers\api\ChartApiController;
 use App\Http\Controllers\api\DashboardApiController;
+use App\Http\Controllers\api\ImportApiClientController;
 use App\Http\Controllers\api\InvoiceApiController;
 use App\Http\Controllers\api\OfferApiController;
 use App\Http\Controllers\api\PaymentApiController;
@@ -29,6 +30,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/settings/remise',[\App\Http\Controllers\SettingsController::class,'getRemise']);
     Route::post('/payement/update',[PaymentApiController::class,'update']);
     Route::post('/payement/delete',[PaymentApiController::class,'delete']);
+    Route::post('/import/client',[ImportApiClientController::class,'import']);
 
 });
 
