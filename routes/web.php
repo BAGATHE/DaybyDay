@@ -59,6 +59,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/upload/{external_id}', 'DocumentsController@upload')->name('document.upload');
         Route::patch('/updateassign/{external_id}', 'ClientsController@updateAssign');
         Route::post('/updateassign/{external_id}', 'ClientsController@updateAssign');
+        Route::get('/listclient', 'ClientsController@getlist');
+        Route::get('/duplicate/{id}', 'ClientsController@duplicate')->name('client.duplicate');
     });
     Route::resource('clients', 'ClientsController');
     Route::get('document/{external_id}', 'DocumentsController@view')->name('document.view');
@@ -136,6 +138,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/business-hours', 'SettingsController@businessHours')->name('settings.business_hours');
         Route::get('/date-formats', 'SettingsController@dateFormats')->name('settings.date_formats');
         Route::get('/reset', 'SettingsController@reset')->name('settings.reset_data');
+        Route::get('/generation_data', 'SettingsController@generationData')->name('settings.generation_data');
     });
 
     /**
@@ -240,6 +243,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/',[CsvImportController::class,'import'])->name('import.csv');
     });
 });
+
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/dropbox-token', 'CallbackController@dropbox')->name('dropbox.callback');

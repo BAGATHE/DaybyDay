@@ -11,6 +11,7 @@ class InvoiceLine extends Model
     use SoftDeletes;
 
     protected $fillable = [
+        'id',
         'external_id',
         'type',
         'quantity',

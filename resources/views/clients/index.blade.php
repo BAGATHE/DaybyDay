@@ -50,9 +50,7 @@
                 {data: 'namelink', name: 'company_name'},
                 {data: 'vat', name: 'vat'},
                 {data: 'address', name: 'address'},
-
                 { data: 'view', name: 'view', orderable: false, searchable: false, class:'fit-action-delete-th table-actions'},
-
                 @if(Entrust::can('client-update'))
                 { data: 'edit', name: 'edit', orderable: false, searchable: false, class:'fit-action-delete-th table-actions'},
                 @endif

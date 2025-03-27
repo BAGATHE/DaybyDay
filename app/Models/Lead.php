@@ -30,6 +30,7 @@ class Lead extends Model implements Commentable
     const LEAD_STATUS_CLOSED = "closed";
 
     protected $fillable = [
+        'id',
         'external_id',
         'title',
         'description',

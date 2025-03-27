@@ -63,7 +63,11 @@ class PaymentApiController extends Controller
     }
 
     public function delete(Request $request){
-        $result = DB::table('payments')->where('id','=',$request->id)->delete();
+        $payement = Payment::find($request->id);
+        $invoice = $payement->invoice;
+        $payement->delete();
+        $status = new GenerateInvoiceStatus($invoice);
+        $status->createStatus();
         return ResponseUtil::responseStandard('success', ["message" => "suppression reussie"]);
     }
 

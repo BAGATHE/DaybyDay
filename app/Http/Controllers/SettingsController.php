@@ -2,7 +2,15 @@
 namespace App\Http\Controllers;
 
 use App\Enums\Country;
+use App\Models\Absence;
+use App\Models\Appointment;
 use App\Models\BusinessHour;
+use App\Models\Client;
+use App\Models\Invoice;
+use App\Models\Lead;
+use App\Models\Payment;
+use App\Models\Project;
+use App\Models\Task;
 use App\Repositories\Currency\Currency;
 use App\Repositories\Format\GetDateFormat;
 use App\Repositories\Setting\GenerateSetting;
@@ -220,5 +228,28 @@ public function updateRemise(Request $request){
     public function getRemise(){
         $remise = Setting::getGlobalRemise();
         return ResponseUtil::responseStandard('success', ["remise" => $remise]);
+    }
+
+    public function generationData(){
+        try {
+            factory(Client::class, 20)->create();
+            factory(Lead::class, 5)->create();
+            factory(Task::class, 200)->create();
+            factory(Appointment::class, 50)->create();
+            factory(Project::class, 75)->create();
+            factory(Absence::class, 75)->create();
+            factory(Invoice::class, 125)->create();
+            factory(Payment::class, 75)->create();
+
+            // Statut de succès
+            $status = 'success';
+            $message = 'Données générées avec succès';
+        } catch (Exception $e) {
+            // Gestion des erreurs
+            $status = 'error';
+            $message = "Erreur lors de la génération des données : " . $e->getMessage();
+        }
+
+        return redirect()->route('dashboard');
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Enums\Country;
 use App\Enums\InvoiceStatus;
 use App\Models\Invoice;
+use App\Models\Lead;
 use App\Models\Status;
 use App\Models\Task;
 use App\Repositories\FilesystemIntegration\FilesystemIntegration;
@@ -12,6 +13,7 @@ use App\Services\ClientNumber\ClientNumberService;
 use App\Services\Invoice\InvoiceCalculator;
 use App\Services\Search\SearchService;
 use App\Services\Storage\GetStorageProvider;
+use App\Utils\ResponseUtil;
 use Carbon\Carbon;
 use Config;
 use Dinero;
@@ -393,6 +395,7 @@ class ClientsController extends Controller
     }
 
 
+
     /**
      * @param $client
      * @return mixed
@@ -431,5 +434,23 @@ class ClientsController extends Controller
     public function listAllIndustries()
     {
         return Industry::pluck('name', 'id');
+    }
+
+
+    public function getlist(){
+        $clients = Client::all();
+        return view('clients.list',compact('clients'));
+    }
+
+    public function duplicate($id){
+        $data = Client::with('contacts','projects','leads.offers','invoices.invoiceLines')->where('id', $id)->get();
+        $jsondata = json_encode($data, JSON_PRETTY_PRINT);
+
+        return response($jsondata)
+            ->header('Content-Type', 'application/json')
+            ->header('Charset', 'utf-8')
+            ->header('Content-Disposition', 'attachment; filename="data.json"');
+
+       // return ResponseUtil::responseStandard('success', $data);
     }
 }

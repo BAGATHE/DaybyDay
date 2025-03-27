@@ -25,6 +25,7 @@ class Invoice extends Model
     const STATUS_SENT = "sent";
 
     protected $fillable = [
+        'id',
         'status',
         'sent_at',
         'due_at',

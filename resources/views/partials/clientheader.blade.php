@@ -1,20 +1,26 @@
 <div class="col-md-6">
     <div class="panel panel-primary contact-header-box">
         <div class="panel-body">
-           @if(\Route::getCurrentRoute()->getName() != "clients.show")
+            <a href="{{ route('client.duplicate', $client->id) }}" class="btn btn-bold btn-primary">
+                Dupliquer
+            </a>
+
+        @if(\Route::getCurrentRoute()->getName() != "clients.show")
                 <a href="{{route('clients.show', $client->external_id)}}"><i class="ion ion-ios-redo " title="{{ __('Go to client') }}" style="
                     float: right;
                     margin-right: 1em;
                     color:#61788b;
                     "></i></a>
             @endif
-            <p class="client-company-text" title="{{ __('Company name') }}">{{$client->company_name}} <span aria-hidden="true" data-toggle="tooltip" title="{{ __('Client number') }}" data-placement="top" style="font-size:10px;"> | {{$client->client_number}}</span> 
-
+            <p class="client-company-text" title="{{ __('Company name') }}">{{$client->company_name}} <span aria-hidden="true" data-toggle="tooltip" title="{{ __('Client number') }}" data-placement="top" style="font-size:10px;"> | {{$client->client_number}}</span>
             </p>
             <!--Client info leftside-->
             <div class="contactleft">
                 <p class="client-name-text"  aria-hidden="true" data-toggle="tooltip"
                    title="{{ __('Contact person name') }}" data-placement="left"> {{$contact_info->name}}</p>
+
+
+
             @if($contact_info->email != "")
                 <!--MAIL-->
                     <p class="contact-paragraph">
@@ -36,6 +42,7 @@
                            title="{{ __('Secondary number') }}" data-placement="left">{{$contact_info->secondary_number}}</a>
                     </p>
             @endif
+
             </div>
 
             <!--Client info leftside END-->
@@ -69,6 +76,7 @@
                        title="{{ __('Company type') }}" data-placement="left">
                         {{$client->company_type}}</p>
                 @endif
+
             </div>
         </div>
     </div>

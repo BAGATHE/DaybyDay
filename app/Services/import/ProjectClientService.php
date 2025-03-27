@@ -43,6 +43,9 @@ class ProjectClientService
             try {
                 // Création du DTO avec validation intégrée
                 $dto = new ProjectClientDto($row[0] ?? '', $row[1] ?? '');
+                if(Project::where('title',$row[0])->exists()){
+                    $this->errors[] = "Fichier : $fileName | Ligne $lineNumber : le projet {$row[0]} existe déjà";
+                }
                 $data[] = $dto;
 
 
